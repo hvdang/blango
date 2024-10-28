@@ -1,0 +1,4 @@
+django
+crispy-bootstrap5
+django-configurations
+dj-database-url
