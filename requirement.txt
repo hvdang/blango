@@ -3,3 +3,5 @@ crispy-bootstrap5
 django-configurations
 dj-database-url
 'django[argon2]'
+pymemcache
+django-debug-toolbar

@@ -31,14 +31,8 @@ class Dev(Configuration):
     DEBUG = values.BooleanValue(True)
 
     ALLOWED_HOSTS = values.ListValue(["localhost", "0.0.0.0"])
-    # X_FRAME_OPTIONS = 'ALLOW-FROM ' + os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io'
-    # CSRF_COOKIE_SAMESITE = None
-    # CSRF_TRUSTED_ORIGINS = ['https://' + os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io']
-    # CSRF_COOKIE_SECURE = True
-    # SESSION_COOKIE_SECURE = True
-    # CSRF_COOKIE_SAMESITE = 'None'
-    # SESSION_COOKIE_SAMESITE = 'None'
 
+    AUTH_USER_MODEL = "blango_auth.User"
 
     # Application definition
 
@@ -49,12 +43,15 @@ class Dev(Configuration):
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
+        'blango_auth',
         'blog',
         'crispy_forms',
         'crispy_bootstrap5',
+        'debug_toolbar',
     ]
 
     MIDDLEWARE = [
+        'debug_toolbar.middleware.DebugToolbarMiddleware', # 
         'django.middleware.security.SecurityMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
@@ -176,9 +173,34 @@ class Dev(Configuration):
       'django.contrib.auth.hashers.PBKDF2PasswordHasher',
       'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
       'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
-  ]
-
-
+    ]
+    
+    # memory cache
+    # CACHES = {
+    #     "default": {
+    #         "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+    #         "LOCATION": "127.0.0.1:11211",
+    #     }
+    # }
+    
+    # database cache
+    # CACHES = {
+    # "default": {
+    #     "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+    #     "LOCATION": "my_cache_table",
+    #     }
+    # }
+    
+    # local-memory caching
+    CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "unique-snowflake",
+        }
+    }   
+    
+    INTERNAL_IPS = ['127.0.0.1'] # For debug toolbar
+        
 class Prod(Dev):
     DEBUG = False
     SECRET_KEY = values.SecretValue()
