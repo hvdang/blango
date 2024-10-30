@@ -66,7 +66,7 @@ class Dev(Configuration):
     TEMPLATES = [
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'DIRS': [BASE_DIR/'templates'],
+            'DIRS': [BASE_DIR/'templates', BASE_DIR/'blango_auth'/'templates'],
             'APP_DIRS': True,
             'OPTIONS': {
                 'context_processors': [
@@ -200,6 +200,11 @@ class Dev(Configuration):
     }   
     
     INTERNAL_IPS = ['127.0.0.1'] # For debug toolbar
+    
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+    ACCOUNT_ACTIVATION_DAYS = 7 # for activation in django_registration
+    
+    REGISTRATION_OPEN = True # False if set the registration is closed
         
 class Prod(Dev):
     DEBUG = False
