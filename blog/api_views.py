@@ -43,7 +43,7 @@ def post_list(request):
 
 @csrf_exempt
 def post_detail(request, pk):
-    post = get_list_or_404(Post, pk=pk)
+    post = get_list_or_404(Post, pk=pk)[0]
     
     if request.method == 'GET':
         return JsonResponse(post_to_dict(post))

@@ -30,9 +30,7 @@ class Dev(Configuration):
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = values.BooleanValue(True)
 
-    ALLOWED_HOSTS = values.ListValue(["localhost", "0.0.0.0"])
-
-    AUTH_USER_MODEL = "blango_auth.User"
+    ALLOWED_HOSTS = values.ListValue(["localhost", "0.0.0.0", "127.0.0.1"])
 
     # Application definition
 
@@ -211,6 +209,10 @@ class Dev(Configuration):
     ACCOUNT_ACTIVATION_DAYS = 7 # for activation in django_registration
     
     REGISTRATION_OPEN = True # False if set the registration is closed
+    
+    # for new user model
+    AUTH_USER_MODEL = "blango_auth.User"
+
     
     # for ALLAUTH
     SITE_ID = 1
