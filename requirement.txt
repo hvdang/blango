@@ -8,3 +8,7 @@ django-debug-toolbar
 django-registration
 django-allauth
 PyJWT
+cryptography
+djangorestframework
+ipython
+

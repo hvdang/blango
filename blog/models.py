@@ -30,12 +30,12 @@ class Post(models.Model):
   author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
   created_at = models.DateTimeField(auto_now_add=True)
   modified_at = models.DateTimeField(auto_now=True)
-  published_at = models.DateTimeField(blank=True, null=True, db_index=True)
+  published_at = models.DateTimeField(auto_now=True, blank=True, null=True, db_index=True)
   title = models.TextField(max_length=100)
   slug = models.SlugField(unique=True)
   summary = models.TextField(max_length=500)
   content = models.TextField()
-  tags = models.ManyToManyField(Tag, related_name="posts")
+  tags = models.ManyToManyField(Tag, related_name="posts", null=True)
   comments = GenericRelation(Comment)
 
   def __str__(self):
